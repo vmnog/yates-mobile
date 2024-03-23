@@ -1,14 +1,23 @@
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '@/components/EditScreenInfo';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from '@/components/Themed';
+import { UpcomingEvents } from '@/components/UpcomingEvents';
+import { TodaysTraining } from '@/components/TodaysTraining';
+import { useRouter } from 'expo-router';
+import Colors from '@/constants/Colors';
 
 export default function TabOneScreen() {
+  const router = useRouter()
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <Text style={styles.title}>{`You can do\nbetter today ✌️\nwith your goals`}</Text>
+      <UpcomingEvents />
+      <TodaysTraining />
+      <TouchableOpacity
+        onPress={() => router.push('/training')}
+        activeOpacity={0.8} style={styles.startTrainingButton}>
+        <Text style={styles.button}>▶️  Start Training</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -16,16 +25,26 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
+    padding: 20,
+    gap: 20
   },
   title: {
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+  button: {
     fontSize: 20,
     fontWeight: 'bold',
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
+  startTrainingButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: Colors.dark.primary,
+    borderRadius: 14,
+    padding: 20,
+    gap: 20
+  }
 });
