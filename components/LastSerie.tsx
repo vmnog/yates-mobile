@@ -8,23 +8,33 @@ interface LastSerieProps {
   setEditing(serieId: Serie['id']): void
 }
 
-export function LastSerie({
+export function ExecutionItem({
   lastSerie,
   currentSerie,
   setEditing
 }: LastSerieProps) {
   return (
-    <TouchableOpacity onPress={() => setEditing(currentSerie.id)} disabled={!currentSerie}>
-      <Text style={currentSerie ? styles.serieExecution : styles.serieExecutionNotExecuted}>
-        {currentSerie && `${currentSerie.reps}x ${currentSerie.weight}kg`}
-        {!currentSerie && `${lastSerie.reps}x ${lastSerie.weight}kg`}
+    <TouchableOpacity activeOpacity={0.7} onPress={() => setEditing(currentSerie.id)} disabled={!currentSerie}>
+      {currentSerie && lastSerie &&
+        <Text style={styles.serieExecutionNotExecuted}>
+          {`${lastSerie.reps}x ${lastSerie.weight}kg`}
+        </Text>
+      }
 
-        {' '}
-        {currentSerie && currentSerie.hasImproved && '🔥'}
-        {currentSerie && currentSerie.hasWorsed && '👎'}
-        {currentSerie && !currentSerie.hasWorsed && !currentSerie.hasImproved && '🙂'}
-      </Text>
-    </TouchableOpacity>
+      {!currentSerie && (
+        <Text style={styles.serieLastExecution}> {lastSerie.reps}x {lastSerie.weight}kg</Text>
+      )}
+
+      {currentSerie && (
+        <Text style={styles.serieExecution}>
+          {`${currentSerie.reps}x ${currentSerie.weight}kg`}
+          {' '}
+          {currentSerie && currentSerie.hasImproved && '🔥'}
+          {currentSerie && currentSerie.hasWorsed && '👎'}
+          {currentSerie && !currentSerie.hasWorsed && !currentSerie.hasImproved && '🙂'}
+        </Text>
+      )}
+    </TouchableOpacity >
   )
 }
 
@@ -33,8 +43,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white'
   },
-  serieExecutionNotExecuted: {
+  serieLastExecution: {
     fontSize: 18,
-    opacity: 0.4
+    opacity: 0.4,
+  },
+  serieExecutionNotExecuted: {
+    fontSize: 14,
+    opacity: 0.4,
+    // textDecorationLine: 'line-through'
   },
 });

@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { TrainingResume } from '@/components/TrainingResume';
 import { WorkoutTitle } from '@/components/WorkoutTitle';
 import { Serie, Workout } from './api/dtos';
-import { ExecutionActions } from '@/components/ExecutionActions';
+import { ExecutionWhileEditing } from '@/components/ExecutionActions';
 import { DEFAULT_TRAINING, DEFAULT_WORKOUT } from './api/mocks';
-import { LastSerie } from '@/components/LastSerie';
+import { ExecutionItem } from '@/components/LastSerie';
 
 export default function TabOneTraningScreen() {
   const [workouts, setWorkouts] = useState<Workout[]>(DEFAULT_WORKOUT)
@@ -27,14 +27,15 @@ export default function TabOneTraningScreen() {
               />
               {workout.seriesLastTraining.map((lastSerie, index) => {
                 return workout.series[index]?.id === currentEditingExecution ? (
-                  <ExecutionActions
+                  <ExecutionWhileEditing
                     key={lastSerie.id}
+                    lastSerie={lastSerie}
                     currentSerie={workout.series[index]}
                     workouts={workouts}
                     setWorkouts={setWorkouts}
                   />
                 ) : (
-                  <LastSerie
+                  <ExecutionItem
                     key={lastSerie.id}
                     lastSerie={lastSerie}
                     currentSerie={workout.series[index]}
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     gap: 10
   },
   iconsInfoText: {
-    fontSize: 16
+    fontSize: 16,
+    textAlign: 'center'
   }
 });

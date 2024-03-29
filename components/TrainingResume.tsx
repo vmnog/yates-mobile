@@ -1,5 +1,6 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
+import { CurrentWeight } from './CurrentWeight';
 
 interface TrainingResumeProps {
   training: {
@@ -18,9 +19,7 @@ export function TrainingResume({
     <View style={styles.header}>
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.subtitle}>{date}</Text>
-      <TouchableOpacity activeOpacity={0.7}>
-        <Text style={styles.subtitle}>Peso corporal: {currentWeight}kg ✏️</Text>
-      </TouchableOpacity>
+      <CurrentWeight weight={currentWeight} />
     </View>
   )
 }

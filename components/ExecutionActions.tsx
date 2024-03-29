@@ -1,16 +1,19 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from './Themed';
 import { FontAwesome } from '@expo/vector-icons';
-import { Serie, Workout } from '@/app/api/dtos';
+import { LastSerie, Serie, Workout } from '@/app/api/dtos';
 import Colors from '@/constants/Colors';
+import { IncreaseOrDecrease } from './IncreaseOrDecrease';
 
 interface ExecutionActionsProps {
+  lastSerie: LastSerie,
   currentSerie: Serie,
   workouts: Workout[],
   setWorkouts(workouts: Workout[]): void
 }
 
-export function ExecutionActions({
+export function ExecutionWhileEditing({
+  lastSerie,
   currentSerie,
   workouts,
   setWorkouts
@@ -63,67 +66,43 @@ export function ExecutionActions({
   };
 
   return (
-    <View style={styles.executionActions}>
-      <TouchableOpacity
-        onPress={() => updateSerie(currentSerie?.id, 'reps', 'decrease')}
-        style={[styles.executionButton, styles.decreaseButton]}>
-        <FontAwesome name='minus' color="white" />
-      </TouchableOpacity>
-
-      <Text style={currentSerie ? styles.serieExecution : styles.serieExecutionNotExecuted}>
-        {currentSerie.reps}x
-      </Text>
-
-      <TouchableOpacity
-        onPress={() => updateSerie(currentSerie?.id, 'reps', 'increase')}
-        style={[styles.executionButton, styles.increaseButton]}>
-        <FontAwesome name='plus' color="white" />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => updateSerie(currentSerie?.id, 'weight', 'decrease')}
-        style={[styles.executionButton, styles.decreaseButton]}>
-        <FontAwesome name='minus' color="white" />
-      </TouchableOpacity>
-
-      <Text style={currentSerie ? styles.serieExecution : styles.serieExecutionNotExecuted}>
-        {currentSerie.weight}kg
-      </Text>
-
-      <TouchableOpacity
-        onPress={() => updateSerie(currentSerie?.id, 'weight', 'increase')}
-        style={[styles.executionButton, styles.increaseButton]}>
-        <FontAwesome name='plus' color="white" />
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <Text style={styles.serieExecutionNotExecuted}>{lastSerie.reps}x {lastSerie.weight}kg</Text>
+      <View style={styles.executionActions}>
+        <IncreaseOrDecrease
+          value={currentSerie.reps}
+          increaseFunction={() => updateSerie(currentSerie?.id, 'reps', 'increase')}
+          decreaseFunction={() => updateSerie(currentSerie?.id, 'reps', 'decrease')}
+          sufix='x'
+        />
+        <IncreaseOrDecrease
+          value={currentSerie.weight}
+          increaseFunction={() => updateSerie(currentSerie?.id, 'weight', 'increase')}
+          decreaseFunction={() => updateSerie(currentSerie?.id, 'weight', 'decrease')}
+          sufix='kg'
+        />
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    // alignItems: 'flex-start'
+  },
   executionActions: {
     flexDirection: 'row',
     gap: 20,
-    alignItems: 'center'
-  },
-  executionButton: {
-    width: 40,
-    height: 40,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 14
-  },
-  increaseButton: {
-    backgroundColor: '#7EB77F',
-  },
-  decreaseButton: {
-    backgroundColor: '#E71D36'
+    backgroundColor: 'transparent'
   },
   serieExecution: {
     fontSize: 18,
     color: Colors.dark.text
   },
   serieExecutionNotExecuted: {
-    fontSize: 18,
-    opacity: 0.4
+    fontSize: 14,
+    opacity: 0.4,
+    // textDecorationLine: 'line-through',
   },
 });
