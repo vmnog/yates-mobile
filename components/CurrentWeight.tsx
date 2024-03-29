@@ -1,17 +1,34 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from './Themed';
+import { useState } from 'react';
+import { IncreaseOrDecrease } from './IncreaseOrDecrease';
+import OutsidePressHandler from 'react-native-outside-press';
 
 interface CurrentWeightProps {
-  weight: number
+  currentWeight: number
 }
 
 export function CurrentWeight({
-  weight
+  currentWeight
 }: CurrentWeightProps) {
+  const [weight, setWeight] = useState(currentWeight)
+  const [isEditing, setIsEditing] = useState(false)
+
   return (
-    <TouchableOpacity activeOpacity={0.7}>
-      <Text style={styles.subtitle}>Peso corporal: {weight}kg ✏️</Text>
-    </TouchableOpacity>
+    <OutsidePressHandler onOutsidePress={() => setIsEditing(false)}>
+      {isEditing ? (
+        <IncreaseOrDecrease
+          value={weight}
+          sufix='kg'
+          increaseFunction={() => setWeight(state => state + 1)}
+          decreaseFunction={() => setWeight(state => state - 1)}
+        />
+      ) : (
+        <TouchableOpacity activeOpacity={0.7} onPress={() => setIsEditing(state => !state)}>
+          <Text style={styles.subtitle}>Peso corporal: {weight}kg ✏️</Text>
+        </TouchableOpacity >
+      )}
+    </OutsidePressHandler>
   )
 }
 

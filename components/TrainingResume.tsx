@@ -19,7 +19,7 @@ export function TrainingResume({
     <View style={styles.header}>
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.subtitle}>{date}</Text>
-      <CurrentWeight weight={currentWeight} />
+      <CurrentWeight currentWeight={currentWeight} />
     </View>
   )
 }

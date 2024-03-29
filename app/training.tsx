@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { View, Text } from '@/components/Themed';
 import { useState } from 'react';
 import { TrainingResume } from '@/components/TrainingResume';
@@ -7,6 +7,7 @@ import { Serie, Workout } from './api/dtos';
 import { ExecutionWhileEditing } from '@/components/ExecutionActions';
 import { DEFAULT_TRAINING, DEFAULT_WORKOUT } from './api/mocks';
 import { ExecutionItem } from '@/components/LastSerie';
+import OutsidePressHandler from 'react-native-outside-press';
 
 export default function TabOneTraningScreen() {
   const [workouts, setWorkouts] = useState<Workout[]>(DEFAULT_WORKOUT)
@@ -15,11 +16,11 @@ export default function TabOneTraningScreen() {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <TouchableOpacity activeOpacity={1} style={styles.scrollViewContainer} onPress={() => setCurrentEditingExecution(0)}>
+        <View style={styles.scrollViewContainer}>
           <TrainingResume training={DEFAULT_TRAINING} />
           <Text style={styles.iconsInfoText}>🔥 better  / 👎 worse / 🙂 equal</Text>
           {workouts.map((workout) => (
-            <View key={workout.id} style={styles.seriesExercise}>
+            <View style={styles.seriesExercise}>
               <WorkoutTitle
                 workout={workout}
                 workouts={workouts}
@@ -27,13 +28,17 @@ export default function TabOneTraningScreen() {
               />
               {workout.seriesLastTraining.map((lastSerie, index) => {
                 return workout.series[index]?.id === currentEditingExecution ? (
-                  <ExecutionWhileEditing
+                  <OutsidePressHandler
                     key={lastSerie.id}
-                    lastSerie={lastSerie}
-                    currentSerie={workout.series[index]}
-                    workouts={workouts}
-                    setWorkouts={setWorkouts}
-                  />
+                    onOutsidePress={() => setCurrentEditingExecution(0)}
+                  >
+                    <ExecutionWhileEditing
+                      lastSerie={lastSerie}
+                      currentSerie={workout.series[index]}
+                      workouts={workouts}
+                      setWorkouts={setWorkouts}
+                    />
+                  </OutsidePressHandler>
                 ) : (
                   <ExecutionItem
                     key={lastSerie.id}
@@ -46,7 +51,7 @@ export default function TabOneTraningScreen() {
               )}
             </View>
           ))}
-        </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
