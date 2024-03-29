@@ -14,7 +14,27 @@ export default function TabOneTraningScreen() {
   const [workouts, setWorkouts] = useState<Workout[]>(DEFAULT_WORKOUT)
   const [currentEditingExecution, setCurrentEditingExecution] = useState<Serie['id']>(0)
 
-  const handleEditExecution = (lastSerie: LastSerie | null) => {
+  const createSerieFromLastSerie = (lastSerie: LastSerie, workoutIndex: number) => {
+    const newWorkouts = workouts.map((item, index) => {
+      if (index === workoutIndex) {
+        const newSerie = {
+          ...lastSerie,
+          hasWorsed: false,
+          hasImproved: false
+        }
+        return {
+          ...item,
+          series: [...item.series, newSerie]
+        }
+      }
+
+      return item
+    })
+
+    setWorkouts(newWorkouts)
+  }
+
+  const handleEditExecution = (lastSerie: LastSerie | null, workoutIndex: number) => {
     if (lastSerie === null) {
       setCurrentEditingExecution(0)
       return
@@ -23,18 +43,18 @@ export default function TabOneTraningScreen() {
     if (!workouts.find(item => item.series.find(serie => serie?.id === lastSerie?.id))) {
       const alertButtons: AlertButton[] = [
         {
-          text: 'nao',
+          text: 'Cancel',
           isPreferred: false,
           style: 'destructive'
         },
         {
-          text: 'sim',
-          onPress: () => Alert.alert('iniciando'),
+          text: 'Yes',
+          onPress: () => createSerieFromLastSerie(lastSerie, workoutIndex),
           isPreferred: true,
           style: 'default'
         },
       ]
-      Alert.prompt('item nao tem serie', 'deseja iniciar essa serie?', alertButtons, 'default')
+      Alert.prompt('Start exercise?', 'Click "Yes" to start', alertButtons, 'default')
       return
     }
 
@@ -47,7 +67,7 @@ export default function TabOneTraningScreen() {
         <View style={styles.scrollViewContainer}>
           <TrainingResume training={DEFAULT_TRAINING} />
           <Text style={styles.iconsInfoText}>🔥 better  / 👎 worse / 🙂 equal</Text>
-          {workouts.map((workout) => (
+          {workouts.map((workout, workoutIndex) => (
             <View key={workout.id} style={styles.seriesExercise}>
               <WorkoutTitle
                 workout={workout}
@@ -58,7 +78,7 @@ export default function TabOneTraningScreen() {
                 return workout.series[index]?.id === currentEditingExecution ? (
                   <OutsidePressHandler
                     key={lastSerie.id}
-                    onOutsidePress={() => handleEditExecution(null)}
+                    onOutsidePress={() => handleEditExecution(null, workoutIndex)}
                   >
                     <ExecutionWhileEditing
                       lastSerie={lastSerie}
@@ -73,6 +93,7 @@ export default function TabOneTraningScreen() {
                     lastSerie={lastSerie}
                     currentSerie={workout.series[index]}
                     setEditing={handleEditExecution}
+                    workoutIndex={workoutIndex}
                   />
                 )
               }

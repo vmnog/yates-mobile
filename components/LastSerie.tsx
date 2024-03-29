@@ -1,20 +1,22 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from './Themed';
-import { LastSerie as LastSerieType, Serie } from '@/app/api/dtos';
+import { LastSerie, Serie } from '@/app/api/dtos';
 
 interface LastSerieProps {
-  lastSerie: LastSerieType,
+  lastSerie: LastSerie,
   currentSerie: Serie,
-  setEditing(serie: Serie): void
+  setEditing(lastSerie: LastSerie, workoutIndex: number): void
+  workoutIndex: number
 }
 
 export function ExecutionItem({
   lastSerie,
   currentSerie,
-  setEditing
+  setEditing,
+  workoutIndex,
 }: LastSerieProps) {
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={() => setEditing(currentSerie)}>
+    <TouchableOpacity activeOpacity={0.7} onPress={() => setEditing(lastSerie, workoutIndex)}>
       {currentSerie && lastSerie &&
         <Text style={styles.serieExecutionNotExecuted}>
           {`${lastSerie.reps}x ${lastSerie.weight}kg`}
