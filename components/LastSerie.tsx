@@ -1,11 +1,11 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from './Themed';
-import { LastSerie as LastSerieType, Serie } from '@/app/api/dtos';
+import { LastSerie, LastSerie as LastSerieType, Serie } from '@/app/api/dtos';
 
 interface LastSerieProps {
   lastSerie: LastSerieType,
   currentSerie: Serie,
-  setEditing(serieId: Serie['id']): void
+  setEditing(serie: Serie['id']): void
 }
 
 export function ExecutionItem({
@@ -14,7 +14,7 @@ export function ExecutionItem({
   setEditing
 }: LastSerieProps) {
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={() => setEditing(currentSerie.id)} disabled={!currentSerie}>
+    <TouchableOpacity activeOpacity={0.7} onPress={() => setEditing(currentSerie)}>
       {currentSerie && lastSerie &&
         <Text style={styles.serieExecutionNotExecuted}>
           {`${lastSerie.reps}x ${lastSerie.weight}kg`}

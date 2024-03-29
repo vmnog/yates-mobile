@@ -27,14 +27,13 @@ export const DEFAULT_WORKOUT = [
         hasImproved: false,
         hasWorsed: false,
       },
-      {
-        id: 4,
-        reps: 9,
-        weight: 20,
-        hasImproved: false,
-        hasWorsed: true,
-      },
-
+      // {
+      //   id: 4,
+      //   reps: 9,
+      //   weight: 20,
+      //   hasImproved: false,
+      //   hasWorsed: true,
+      // },
     ],
     seriesLastTraining: [
       {
