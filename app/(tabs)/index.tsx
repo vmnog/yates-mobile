@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { UpcomingEvents } from '@/components/UpcomingEvents';
 import { TodaysTraining } from '@/components/TodaysTraining';
@@ -7,6 +7,8 @@ import Colors from '@/constants/Colors';
 
 export default function TabOneScreen() {
   const router = useRouter()
+  const colorScheme = useColorScheme()
+  const currentColorScheme = colorScheme || 'dark'
 
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ export default function TabOneScreen() {
       <TodaysTraining />
       <TouchableOpacity
         onPress={() => router.push('/training')}
-        activeOpacity={0.8} style={styles.startTrainingButton}>
+        activeOpacity={0.8} style={[styles.startTrainingButton, { backgroundColor: Colors[currentColorScheme].primary }]}>
         <Text style={styles.button}>▶️  Start Training</Text>
       </TouchableOpacity>
     </View>
@@ -42,7 +44,6 @@ const styles = StyleSheet.create({
   startTrainingButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.dark.primary,
     borderRadius: 14,
     padding: 20,
     gap: 20

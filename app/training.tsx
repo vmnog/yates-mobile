@@ -8,6 +8,7 @@ import { ExecutionWhileEditing } from '@/components/ExecutionActions';
 import { DEFAULT_TRAINING, DEFAULT_WORKOUT } from './api/mocks';
 import { ExecutionItem } from '@/components/LastSerie';
 import OutsidePressHandler from 'react-native-outside-press';
+import { TrainingActionButtons } from '@/components/TrainingActionButtons';
 
 export default function TabOneTraningScreen() {
   const [workouts, setWorkouts] = useState<Workout[]>(DEFAULT_WORKOUT)
@@ -80,11 +81,11 @@ export default function TabOneTraningScreen() {
           ))}
         </View>
       </ScrollView>
+
+      <TrainingActionButtons />
     </View>
   );
 }
-
-export const actionsHeight = 100
 
 const styles = StyleSheet.create({
   container: {
@@ -92,7 +93,6 @@ const styles = StyleSheet.create({
   },
   scrollViewContainer: {
     padding: 20,
-    paddingBottom: 80 + actionsHeight,
     gap: 40,
   },
   seriesExercise: {
@@ -101,5 +101,5 @@ const styles = StyleSheet.create({
   iconsInfoText: {
     fontSize: 16,
     textAlign: 'center'
-  }
+  },
 });

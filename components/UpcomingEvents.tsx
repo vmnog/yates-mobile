@@ -1,17 +1,23 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
 import { Text, View } from './Themed';
-import Colors from '@/constants/Colors';
 import { useRouter } from 'expo-router';
+import Colors from '@/constants/Colors';
 
 export function UpcomingEvents() {
   const router = useRouter()
+  const colorScheme = useColorScheme()
+  const currentColorScheme = colorScheme || 'dark'
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container]}>
       <Text style={styles.title}>Upcoming events</Text>
       <TouchableOpacity
         onPress={() => router.push('/events')}
-        activeOpacity={0.8} style={styles.eventContainer}>
+        activeOpacity={0.8}
+        style={[
+          styles.eventContainer,
+          { backgroundColor: Colors[currentColorScheme].primary }]}
+      >
         <Text style={styles.eventTitle}>💪 Chest & Calves</Text>
         <Text style={styles.eventTitle}>2/7</Text>
       </TouchableOpacity>
@@ -24,7 +30,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     textAlign: 'left',
-    gap: 20
+    gap: 20,
   },
   title: {
     fontSize: 16,
@@ -37,7 +43,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     textAlign: 'left',
-    backgroundColor: Colors.dark.primary,
     borderRadius: 14,
     paddingHorizontal: 40,
     paddingVertical: 30

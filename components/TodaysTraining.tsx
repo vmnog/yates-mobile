@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
-import Colors from '@/constants/Colors';
 
 export function TodaysTraining() {
   return (
@@ -17,7 +16,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.dark.background,
     borderRadius: 14,
     padding: 20,
     gap: 20

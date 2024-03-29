@@ -1,11 +1,11 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from './Themed';
-import { LastSerie, LastSerie as LastSerieType, Serie } from '@/app/api/dtos';
+import { LastSerie as LastSerieType, Serie } from '@/app/api/dtos';
 
 interface LastSerieProps {
   lastSerie: LastSerieType,
   currentSerie: Serie,
-  setEditing(serie: Serie['id']): void
+  setEditing(serie: Serie): void
 }
 
 export function ExecutionItem({
@@ -41,7 +41,6 @@ export function ExecutionItem({
 const styles = StyleSheet.create({
   serieExecution: {
     fontSize: 18,
-    color: 'white'
   },
   serieLastExecution: {
     fontSize: 18,
@@ -50,6 +49,5 @@ const styles = StyleSheet.create({
   serieExecutionNotExecuted: {
     fontSize: 14,
     opacity: 0.4,
-    // textDecorationLine: 'line-through'
   },
 });
