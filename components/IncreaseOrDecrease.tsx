@@ -39,7 +39,7 @@ export function IncreaseOrDecrease({
 const styles = StyleSheet.create({
   executionActions: {
     flexDirection: 'row',
-    gap: 20,
+    gap: 10,
     alignItems: 'center'
   },
   executionButton: {

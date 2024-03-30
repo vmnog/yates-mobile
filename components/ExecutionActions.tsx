@@ -1,22 +1,26 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text, View } from './Themed';
-import { FontAwesome } from '@expo/vector-icons';
 import { LastSerie, Serie, Workout } from '@/app/api/dtos';
 import Colors from '@/constants/Colors';
 import { IncreaseOrDecrease } from './IncreaseOrDecrease';
+import { FontAwesome } from '@expo/vector-icons';
 
 interface ExecutionActionsProps {
   lastSerie: LastSerie,
   currentSerie: Serie,
   workouts: Workout[],
   setWorkouts(workouts: Workout[]): void
+  deleteSerie(currentSerie: Serie, workoutIndex: number): void
+  workoutIndex: number
 }
 
 export function ExecutionWhileEditing({
   lastSerie,
   currentSerie,
   workouts,
-  setWorkouts
+  setWorkouts,
+  deleteSerie,
+  workoutIndex
 }: ExecutionActionsProps) {
   const updateSerie = (serieId: Serie['id'], repsOrWeight: 'reps' | 'weight', increaseOrDecrease: 'increase' | 'decrease') => {
     // Make a deep copy of the workouts array to safely modify it
@@ -66,7 +70,7 @@ export function ExecutionWhileEditing({
   };
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.serieExecutionNotExecuted}>{lastSerie.reps}x {lastSerie.weight}kg</Text>
       <View style={styles.executionActions}>
         <IncreaseOrDecrease
@@ -81,18 +85,30 @@ export function ExecutionWhileEditing({
           decreaseFunction={() => updateSerie(currentSerie?.id, 'weight', 'decrease')}
           sufix='kg'
         />
+        <TouchableOpacity
+          onPress={() => deleteSerie(currentSerie, workoutIndex)}
+          style={[styles.executionButton, styles.deleteButton]}>
+          <FontAwesome size={20} name='trash-o' color="white" />
+        </TouchableOpacity>
       </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // alignItems: 'flex-start'
+  executionButton: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 14
+  },
+  deleteButton: {
+    backgroundColor: '#E71D36'
   },
   executionActions: {
     flexDirection: 'row',
-    gap: 20,
+    gap: 10,
     alignItems: 'center',
     backgroundColor: 'transparent'
   },
@@ -103,6 +119,5 @@ const styles = StyleSheet.create({
   serieExecutionNotExecuted: {
     fontSize: 14,
     opacity: 0.4,
-    // textDecorationLine: 'line-through',
   },
 });

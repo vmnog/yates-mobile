@@ -61,6 +61,18 @@ export default function TabOneTraningScreen() {
     setCurrentEditingExecution(lastSerie.id)
   }
 
+  const deleteSerie = (currentSerie: Serie, workoutIndex: number) => {
+    const newSeries = workouts[workoutIndex].series.filter(item => item.id !== currentSerie.id)
+    const newWorkouts = workouts.map((item, index) => {
+      if (index === workoutIndex) {
+        item.series = newSeries
+      }
+
+      return item
+    })
+    setWorkouts(newWorkouts)
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -85,6 +97,8 @@ export default function TabOneTraningScreen() {
                       currentSerie={workout.series[index]}
                       workouts={workouts}
                       setWorkouts={setWorkouts}
+                      deleteSerie={deleteSerie}
+                      workoutIndex={workoutIndex}
                     />
                   </OutsidePressHandler>
                 ) : (
