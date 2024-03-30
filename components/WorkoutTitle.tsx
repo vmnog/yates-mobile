@@ -1,7 +1,7 @@
 import { Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { Text } from './Themed';
+import { Text, View } from './Themed';
 import { Exercise, Workout } from '@/app/api/dtos';
-import { FontAwesome, FontAwesome6 } from '@expo/vector-icons';
+import { FontAwesome6 } from '@expo/vector-icons';
 
 interface WorkoutTitleProps {
   workout: Workout,
@@ -35,29 +35,42 @@ export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitlePro
   }
 
   return (
-    <TouchableOpacity style={styles.container} onPress={() => toggleCompletedExercise(workout.id)}>
-      <Text style={styles.serieTitle}>
-        {workout.exercise.status === 'done' && '✅'}
-        {workout.exercise.status === 'waiting' && '⏰'}
-        {workout.exercise.status === 'cancelled' && '❌'}
-        {' '}
-        {workout.exercise.title}
-      </Text>
+    <View style={styles.container}>
       <TouchableOpacity
+        activeOpacity={0.7}
+        style={styles.titleContainer}
+        onPress={() => toggleCompletedExercise(workout.id)}
+      >
+        <Text style={styles.serieTitle}>
+          {workout.exercise.status === 'done' && '✅'}
+          {workout.exercise.status === 'waiting' && '⏰'}
+          {workout.exercise.status === 'cancelled' && '❌'}
+          {' '}
+          {workout.exercise.title}
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={0.7}
         onPress={() => Alert.alert('add new serie')}
         style={[styles.executionButton, styles.addButton]}>
         <FontAwesome6 size={15} name='plus' color="white" />
       </TouchableOpacity>
-    </TouchableOpacity>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
     gap: 10,
-    alignSelf: 'flex-start'
+    alignSelf: 'flex-start',
+    alignItems: 'center',
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
   },
   executionButton: {
     width: 40,
