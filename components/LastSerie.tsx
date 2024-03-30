@@ -15,29 +15,31 @@ export function ExecutionItem({
   setEditing,
   workoutIndex,
 }: LastSerieProps) {
-  return (
-    <TouchableOpacity style={{ alignSelf: 'flex-start' }} activeOpacity={0.7} onPress={() => setEditing(lastSerie, workoutIndex)}>
-      {currentSerie && lastSerie &&
-        <Text style={styles.serieExecutionNotExecuted}>
-          {`${lastSerie.reps}x ${lastSerie.weight}kg`}
-        </Text>
-      }
+  if (lastSerie.isNewSerie && !currentSerie) return
 
-      {!currentSerie && (
-        <Text style={styles.serieLastExecution}> {lastSerie.reps}x {lastSerie.weight}kg</Text>
-      )}
+  return <TouchableOpacity style={{ alignSelf: 'flex-start' }} activeOpacity={0.7} onPress={() => setEditing(lastSerie, workoutIndex)}>
+    {currentSerie && !lastSerie?.isNewSerie &&
+      <Text style={styles.serieExecutionNotExecuted}>
+        {lastSerie.reps}x ${lastSerie.weight}kg
+      </Text>
+    }
 
-      {currentSerie && (
-        <Text style={styles.serieExecution}>
-          {`${currentSerie.reps}x ${currentSerie.weight}kg`}
-          {' '}
-          {currentSerie && currentSerie.hasImproved && '🔥'}
-          {currentSerie && currentSerie.hasWorsed && '👎'}
-          {currentSerie && !currentSerie.hasWorsed && !currentSerie.hasImproved && '🙂'}
-        </Text>
-      )}
-    </TouchableOpacity >
-  )
+    {!currentSerie && !lastSerie.isNewSerie && (
+      <Text style={styles.serieLastExecution}>
+        {lastSerie.reps}x {lastSerie.weight}kg
+      </Text>
+    )}
+
+    {currentSerie && (
+      <Text style={styles.serieExecution}>
+        {currentSerie.reps}x {currentSerie.weight}kg
+        {' '}
+        {currentSerie.hasImproved && '🔥'}
+        {currentSerie.hasWorsed && '👎'}
+        {!currentSerie.hasWorsed && !currentSerie.hasImproved && '🙂'}
+      </Text>
+    )}
+  </TouchableOpacity>
 }
 
 const styles = StyleSheet.create({

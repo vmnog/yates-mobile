@@ -34,5 +34,6 @@ const styles = StyleSheet.create({
   actionButtonText: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'white'
   },
 });

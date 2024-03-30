@@ -11,7 +11,9 @@ export interface Serie {
   hasWorsed: boolean;
 }
 
-export type LastSerie = Omit<Serie, 'hasImproved' | 'hasWorsed'>
+export type LastSerie = Omit<Serie, 'hasImproved' | 'hasWorsed'> & {
+  isNewSerie?: boolean;
+}
 
 export interface Workout {
   id: number;

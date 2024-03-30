@@ -12,8 +12,7 @@ interface WorkoutTitleProps {
 export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitleProps) {
   const statusOptions: Exercise['status'][] = ['done', 'waiting', 'cancelled']
 
-  const toggleCompletedExercise = (workoutId: Workout['id']) => {
-
+  const toggleExerciseStatus = (workoutId: Workout['id']) => {
     const updatedWorkouts = workouts.map(workout => {
       if (workoutId === workout.id) {
         const statusIndex = statusOptions.findIndex(item => item === workout.exercise.status)
@@ -34,12 +33,33 @@ export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitlePro
     setWorkouts(updatedWorkouts)
   }
 
+  const addNewSerie = (workoutId: Workout['id']) => {
+    const updatedWorkouts = workouts.map(workout => {
+      if (workoutId === workout.id) {
+        const lastSerieFromLastTraining = workout.seriesLastTraining[workout.seriesLastTraining.length - 1]
+        const lastSerieFromCurrentTraining = workout.series[workout.series.length - 1]
+        const newId = Math.random()
+        const newSerie = lastSerieFromCurrentTraining?.id ? lastSerieFromCurrentTraining : lastSerieFromLastTraining
+        const newWorkout = {
+          ...workout,
+          series: [...workout.series, { ...newSerie, id: newId, hasImproved: false, hasWorsed: false }],
+          seriesLastTraining: [...workout.seriesLastTraining, { ...newSerie, id: newId, isNewSerie: true }]
+        } satisfies Workout
+        return newWorkout
+      }
+
+      return workout
+    })
+
+    setWorkouts(updatedWorkouts)
+  }
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
         activeOpacity={0.7}
         style={styles.titleContainer}
-        onPress={() => toggleCompletedExercise(workout.id)}
+        onPress={() => toggleExerciseStatus(workout.id)}
       >
         <Text style={styles.serieTitle}>
           {workout.exercise.status === 'done' && '✅'}
@@ -51,7 +71,7 @@ export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitlePro
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => Alert.alert('add new serie')}
+        onPress={() => addNewSerie(workout.id)}
         style={[styles.executionButton, styles.addButton]}>
         <FontAwesome6 size={15} name='plus' color="white" />
       </TouchableOpacity>

@@ -71,7 +71,9 @@ export function ExecutionWhileEditing({
 
   return currentSerie && lastSerie && (
     <View>
-      <Text style={styles.serieExecutionNotExecuted}>{lastSerie.reps}x {lastSerie.weight}kg</Text>
+      {!lastSerie.isNewSerie && (
+        <Text style={styles.serieExecutionNotExecuted}>{lastSerie.reps}x {lastSerie.weight}kg</Text>
+      )}
       <View style={styles.executionActions}>
         <IncreaseOrDecrease
           value={currentSerie.reps}
