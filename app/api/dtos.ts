@@ -1,6 +1,6 @@
 export interface Exercise {
   title: string;
-  isCompleted: boolean;
+  status: 'done' | 'waiting' | 'cancelled'
 }
 
 export interface Serie {

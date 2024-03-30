@@ -1,6 +1,6 @@
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Text } from './Themed';
-import { Workout } from '@/app/api/dtos';
+import { Exercise, Workout } from '@/app/api/dtos';
 
 interface WorkoutTitleProps {
   workout: Workout,
@@ -9,14 +9,20 @@ interface WorkoutTitleProps {
 }
 
 export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitleProps) {
+  const statusOptions: Exercise['status'][] = ['done', 'waiting', 'cancelled']
+
   const toggleCompletedExercise = (workoutId: Workout['id']) => {
+
     const updatedWorkouts = workouts.map(workout => {
       if (workoutId === workout.id) {
+        const statusIndex = statusOptions.findIndex(item => item === workout.exercise.status)
+        const nextStatus = statusIndex + 1
+
         return {
           ...workout,
           exercise: {
             ...workout.exercise,
-            isCompleted: !workout.exercise.isCompleted
+            status: statusOptions[nextStatus > 2 ? 0 : nextStatus]
           }
         }
       }
@@ -30,7 +36,9 @@ export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitlePro
   return (
     <TouchableOpacity onPress={() => toggleCompletedExercise(workout.id)}>
       <Text style={styles.serieTitle}>
-        {workout.exercise.isCompleted ? '✅' : '⏰'}
+        {workout.exercise.status === 'done' && '✅'}
+        {workout.exercise.status === 'waiting' && '⏰'}
+        {workout.exercise.status === 'cancelled' && '❌'}
         {' '}
         {workout.exercise.title}
       </Text>

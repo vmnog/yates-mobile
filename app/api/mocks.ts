@@ -1,9 +1,11 @@
-export const DEFAULT_WORKOUT = [
+import { Workout } from "./dtos"
+
+export const DEFAULT_WORKOUT: Workout[] = [
   {
     id: 1,
     exercise: {
       title: 'Remada Curvada c/ barra',
-      isCompleted: true
+      status: 'done'
     },
     series: [
       {
@@ -62,7 +64,7 @@ export const DEFAULT_WORKOUT = [
     id: 2,
     exercise: {
       title: 'Supino Reto',
-      isCompleted: false
+      status: 'waiting'
     },
     series: [],
     seriesLastTraining: [
@@ -87,7 +89,7 @@ export const DEFAULT_WORKOUT = [
     id: 3,
     exercise: {
       title: 'Leg Press',
-      isCompleted: false
+      status: 'cancelled'
     },
     series: [],
     seriesLastTraining: [
@@ -112,7 +114,7 @@ export const DEFAULT_WORKOUT = [
     id: 4,
     exercise: {
       title: 'Agachamento Livre',
-      isCompleted: false
+      status: 'waiting'
     },
     series: [],
     seriesLastTraining: [
@@ -137,7 +139,7 @@ export const DEFAULT_WORKOUT = [
     id: 5,
     exercise: {
       title: 'Tríceps na Polia',
-      isCompleted: false
+      status: 'waiting'
     },
     series: [],
     seriesLastTraining: [
@@ -162,7 +164,7 @@ export const DEFAULT_WORKOUT = [
     id: 6,
     exercise: {
       title: 'Elevação Lateral',
-      isCompleted: false
+      status: 'waiting'
     },
     series: [],
     seriesLastTraining: [
@@ -187,7 +189,7 @@ export const DEFAULT_WORKOUT = [
     id: 7,
     exercise: {
       title: 'Rosca Direta',
-      isCompleted: false
+      status: 'waiting'
     },
     series: [],
     seriesLastTraining: [
@@ -199,7 +201,7 @@ export const DEFAULT_WORKOUT = [
       {
         id: 21,
         reps: 12,
-        weight: 25
+        weight: 2
       },
       {
         id: 22,
