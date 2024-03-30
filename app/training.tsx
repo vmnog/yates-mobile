@@ -41,20 +41,7 @@ export default function TabOneTraningScreen() {
     }
 
     if (!workouts.find(item => item.series.find(serie => serie?.id === lastSerie?.id))) {
-      const alertButtons: AlertButton[] = [
-        {
-          text: 'Cancel',
-          isPreferred: false,
-          style: 'destructive'
-        },
-        {
-          text: 'Yes',
-          onPress: () => createSerieFromLastSerie(lastSerie, workoutIndex),
-          isPreferred: true,
-          style: 'default'
-        },
-      ]
-      Alert.prompt('Start exercise?', 'Click "Yes" to start', alertButtons, 'default')
+      createSerieFromLastSerie(lastSerie, workoutIndex)
       return
     }
 
@@ -80,6 +67,7 @@ export default function TabOneTraningScreen() {
           <TrainingResume training={DEFAULT_TRAINING} />
           <Text style={styles.iconsInfoText}>🔥 better  / 👎 worse / 🙂 equal</Text>
           {workouts.map((workout, workoutIndex) => (
+            // TODO: add 'plus' button next to workout title to add a new serie that didnt exists
             <View key={workout.id} style={styles.seriesExercise}>
               <WorkoutTitle
                 workout={workout}

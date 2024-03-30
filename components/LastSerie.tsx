@@ -16,7 +16,7 @@ export function ExecutionItem({
   workoutIndex,
 }: LastSerieProps) {
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={() => setEditing(lastSerie, workoutIndex)}>
+    <TouchableOpacity style={{ alignSelf: 'flex-start' }} activeOpacity={0.7} onPress={() => setEditing(lastSerie, workoutIndex)}>
       {currentSerie && lastSerie &&
         <Text style={styles.serieExecutionNotExecuted}>
           {`${lastSerie.reps}x ${lastSerie.weight}kg`}
