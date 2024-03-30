@@ -21,7 +21,7 @@ export default function TabOneTraningScreen() {
           ...lastSerie,
           hasWorsed: false,
           hasImproved: false
-        }
+        } satisfies Serie
         return {
           ...item,
           series: [...item.series, newSerie]
@@ -86,15 +86,15 @@ export default function TabOneTraningScreen() {
                 workouts={workouts}
                 setWorkouts={setWorkouts}
               />
-              {workout.seriesLastTraining.map((lastSerie, index) => {
-                return workout.series[index]?.id === currentEditingExecution ? (
+              {workout.seriesLastTraining.map((lastSerie) => {
+                return workout.series[workout.series.findIndex((item) => item.id === lastSerie.id)]?.id === currentEditingExecution ? (
                   <OutsidePressHandler
                     key={lastSerie.id}
                     onOutsidePress={() => handleEditExecution(null, workoutIndex)}
                   >
                     <ExecutionWhileEditing
                       lastSerie={lastSerie}
-                      currentSerie={workout.series[index]}
+                      currentSerie={workout.series[workout.series.findIndex((item) => item.id === lastSerie.id)]}
                       workouts={workouts}
                       setWorkouts={setWorkouts}
                       deleteSerie={deleteSerie}
@@ -105,7 +105,7 @@ export default function TabOneTraningScreen() {
                   <ExecutionItem
                     key={lastSerie.id}
                     lastSerie={lastSerie}
-                    currentSerie={workout.series[index]}
+                    currentSerie={workout.series[workout.series.findIndex((item) => item.id === lastSerie.id)]}
                     setEditing={handleEditExecution}
                     workoutIndex={workoutIndex}
                   />
@@ -137,4 +137,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center'
   },
-});
+})

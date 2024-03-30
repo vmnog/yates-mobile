@@ -69,7 +69,7 @@ export function ExecutionWhileEditing({
     setWorkouts(updatedWorkouts);
   };
 
-  return (
+  return currentSerie && lastSerie && (
     <View>
       <Text style={styles.serieExecutionNotExecuted}>{lastSerie.reps}x {lastSerie.weight}kg</Text>
       <View style={styles.executionActions}>
