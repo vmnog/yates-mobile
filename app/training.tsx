@@ -5,13 +5,13 @@ import { TrainingResume } from '@/components/TrainingResume';
 import { WorkoutTitle } from '@/components/WorkoutTitle';
 import { LastSerie, Serie, Workout } from './api/dtos';
 import { ExecutionWhileEditing } from '@/components/ExecutionActions';
-import { DEFAULT_TRAINING, DEFAULT_WORKOUT } from './api/mocks';
+import { DEFAULT_TRAINING, DEFAULT_WORKOUT, SHOULDERS_TRAINING, SHOULDERS_WORKOUT } from './api/mocks';
 import { ExecutionItem } from '@/components/LastSerie';
 import OutsidePressHandler from 'react-native-outside-press';
 import { TrainingActionButtons } from '@/components/TrainingActionButtons';
 
 export default function TabOneTraningScreen() {
-  const [workouts, setWorkouts] = useState<Workout[]>(DEFAULT_WORKOUT)
+  const [workouts, setWorkouts] = useState<Workout[]>(SHOULDERS_WORKOUT)
   const [currentEditingExecution, setCurrentEditingExecution] = useState<Serie['id']>(0)
 
   const createSerieFromLastSerie = (lastSerie: LastSerie, workoutIndex: number) => {
@@ -64,7 +64,7 @@ export default function TabOneTraningScreen() {
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.scrollViewContainer}>
-          <TrainingResume training={DEFAULT_TRAINING} />
+          <TrainingResume training={SHOULDERS_TRAINING} />
           <Text style={styles.iconsInfoText}>🔥 better  / 👎 worse / 🙂 equal</Text>
           {workouts.map((workout, workoutIndex) => (
             // TODO: add 'plus' button next to workout title to add a new serie that didnt exists

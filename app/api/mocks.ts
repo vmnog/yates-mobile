@@ -1,5 +1,80 @@
 import { Workout } from "./dtos"
 
+export const SHOULDERS_WORKOUT: Workout[] = [
+  {
+    id: 1,
+    exercise: {
+      title: 'Desenvolvimento de Ombro c/ Halteres',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 2,
+    exercise: {
+      title: 'Elevação Lateral c/ Halteres',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 3,
+    exercise: {
+      title: 'Elevação Frontal c/ barra W',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 4,
+    exercise: {
+      title: 'Cruxifixo Invertido c/ Halteres',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 5,
+    exercise: {
+      title: 'Remada Alta c/ Halteres',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 6,
+    exercise: {
+      title: 'Encolhimento de Trapézio no Smith + Biset 20kg Anilha até falhar',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 7,
+    exercise: {
+      title: 'Abdominais (Livre)',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  },
+  {
+    id: 8,
+    exercise: {
+      title: 'Cardio (50 min)',
+      status: 'waiting'
+    },
+    series: [],
+    seriesLastTraining: []
+  }
+]
+
 export const DEFAULT_WORKOUT: Workout[] = [
   {
     id: 1,
@@ -211,6 +286,12 @@ export const DEFAULT_WORKOUT: Workout[] = [
     ]
   }
 ]
+
+export const SHOULDERS_TRAINING = {
+  name: '🏋️ Shoulders & Abs',
+  date: '⏰ Sat 30 Mar - 15:00',
+  currentWeight: 76.4
+}
 
 export const DEFAULT_TRAINING = {
   name: '🏋️ Back & Abs',

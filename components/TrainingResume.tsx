@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
     gap: 10
   },
   title: {
-    fontSize: 40,
+    fontSize: 30,
     fontWeight: 'bold',
+    textAlign: 'center'
   },
   subtitle: {
     fontSize: 20,

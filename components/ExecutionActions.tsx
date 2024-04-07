@@ -34,7 +34,7 @@ export function ExecutionWhileEditing({
           if (repsOrWeight === 'reps') {
             newValue = increaseOrDecrease === 'increase' ? serie.reps + 1 : Math.max(0, serie.reps - 1);
           } else { // 'weight'
-            newValue = increaseOrDecrease === 'increase' ? serie.weight + 1 : Math.max(0, serie.weight - 1);
+            newValue = increaseOrDecrease === 'increase' ? serie.weight + 2 : Math.max(0, serie.weight - 2);
           }
 
           // Determine if there has been improvement or worsening based on last training

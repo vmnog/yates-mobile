@@ -39,7 +39,15 @@ export function WorkoutTitle({ workout, workouts, setWorkouts }: WorkoutTitlePro
         const lastSerieFromLastTraining = workout.seriesLastTraining[workout.seriesLastTraining.length - 1]
         const lastSerieFromCurrentTraining = workout.series[workout.series.length - 1]
         const newId = Math.random()
-        const newSerie = lastSerieFromCurrentTraining?.id ? lastSerieFromCurrentTraining : lastSerieFromLastTraining
+        let newSerie = lastSerieFromCurrentTraining?.id ? lastSerieFromCurrentTraining : lastSerieFromLastTraining
+        const isNewSerieEmptyReps = !newSerie?.reps || !newSerie?.weight
+        if (isNewSerieEmptyReps) {
+          newSerie = {
+            ...newSerie,
+            reps: 0,
+            weight: 0,
+          }
+        }
         const newWorkout = {
           ...workout,
           series: [...workout.series, { ...newSerie, id: newId, hasImproved: false, hasWorsed: false }],
@@ -106,5 +114,6 @@ const styles = StyleSheet.create({
   serieTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    maxWidth: 300
   },
 });

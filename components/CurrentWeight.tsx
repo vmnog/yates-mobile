@@ -9,7 +9,7 @@ interface CurrentWeightProps {
 }
 
 export function CurrentWeight({
-  currentWeight
+  currentWeight,
 }: CurrentWeightProps) {
   const [weight, setWeight] = useState(currentWeight)
   const [isEditing, setIsEditing] = useState(false)
@@ -18,14 +18,15 @@ export function CurrentWeight({
     <OutsidePressHandler onOutsidePress={() => setIsEditing(false)}>
       {isEditing ? (
         <IncreaseOrDecrease
+          roundValue
           value={weight}
           sufix='kg'
-          increaseFunction={() => setWeight(state => state + 1)}
-          decreaseFunction={() => setWeight(state => state - 1)}
+          increaseFunction={() => setWeight(state => state + 0.1)}
+          decreaseFunction={() => setWeight(state => state - 0.1)}
         />
       ) : (
         <TouchableOpacity activeOpacity={0.7} onPress={() => setIsEditing(state => !state)}>
-          <Text style={styles.subtitle}>Peso corporal: {weight}kg ✏️</Text>
+          <Text style={styles.subtitle}>Peso corporal: {weight.toFixed(1)}kg ✏️</Text>
         </TouchableOpacity >
       )}
     </OutsidePressHandler>

@@ -3,6 +3,7 @@ import { Text } from './Themed';
 import { FontAwesome } from '@expo/vector-icons';
 
 interface IncreaseOrDecreaseProps {
+  roundValue?: boolean
   sufix?: string
   value: number
   increaseFunction(): void
@@ -10,6 +11,7 @@ interface IncreaseOrDecreaseProps {
 }
 
 export function IncreaseOrDecrease({
+  roundValue,
   sufix,
   value,
   increaseFunction,
@@ -24,7 +26,7 @@ export function IncreaseOrDecrease({
       </TouchableOpacity>
 
       <Text style={styles.valueText}>
-        {value}{sufix}
+        {roundValue ? value.toFixed(1) : value}{sufix}
       </Text>
 
       <TouchableOpacity

@@ -1,26 +1,18 @@
-import { StyleSheet, TouchableOpacity, useColorScheme } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Text, View } from './Themed';
-import { useRouter } from 'expo-router';
-import Colors from '@/constants/Colors';
+import { TrainingEvent, TrainingEventItem } from './TrainingEvent';
+
+const NEXT_TRAINING: TrainingEventItem = {
+  title: '💪 Chest & Calves',
+  eventTotalCounter: '2/7',
+  redirectUrl: '/events'
+}
 
 export function UpcomingEvents() {
-  const router = useRouter()
-  const colorScheme = useColorScheme()
-  const currentColorScheme = colorScheme || 'dark'
-
   return (
     <View style={[styles.container]}>
       <Text style={styles.title}>Upcoming events</Text>
-      <TouchableOpacity
-        onPress={() => router.push('/events')}
-        activeOpacity={0.8}
-        style={[
-          styles.eventContainer,
-          { backgroundColor: Colors[currentColorScheme].primary }]}
-      >
-        <Text style={styles.eventTitle}>💪 Chest & Calves</Text>
-        <Text style={styles.eventTitle}>2/7</Text>
-      </TouchableOpacity>
+      <TrainingEvent event={NEXT_TRAINING} />
     </View>
   )
 }
